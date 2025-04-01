@@ -1,1 +1,6 @@
 books/
+
+# Bytecode files
+__pycache__/
+*.py[cod]
+*$py.class

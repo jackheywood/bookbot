@@ -1,11 +1,12 @@
+from stats import get_num_words, get_character_counts
+
 def main():
     book_file = "books/frankenstein.txt"
     try:
         file_contents = read_file(book_file)
-        word_count = count_words(file_contents)
-        character_counts = count_alphabet_characters(file_contents)
-        sorted_character_counts = sort_character_counts(character_counts)
-        print_report(book_file, word_count, sorted_character_counts)
+        word_count = get_num_words(file_contents)
+        character_counts = get_character_counts(file_contents)
+        print_report(book_file, word_count, character_counts)
     except FileNotFoundError:
         error_message = (
             f"Error: File {book_file} not found. "
@@ -24,30 +25,6 @@ def read_file(file_name):
     with open(file_name) as f:
         file_contents = f.read()
         return file_contents
-
-
-def count_words(text):
-    return len(text.split())
-
-
-def count_alphabet_characters(text):
-    characters = {}
-    for character in text.lower():
-        if character.isalpha():
-            characters[character] = characters.get(character, 0) + 1
-    return characters
-
-
-def sort_character_counts(character_counts):
-    character_count_list = []
-    for character, count in character_counts.items():
-        character_count_list.append({"character": character, "count": count})
-    character_count_list.sort(key=sort_on_count, reverse=True)
-    return character_count_list
-
-
-def sort_on_count(character_count):
-    return character_count["count"]
 
 
 def print_report(file_name, word_count, character_counts):
