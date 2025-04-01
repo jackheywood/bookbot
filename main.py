@@ -1,7 +1,13 @@
+import sys
 from stats import get_num_words, get_character_counts
 
+
 def main():
-    book_file = "books/frankenstein.txt"
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    
+    book_file = sys.argv[1]
     try:
         file_contents = read_file(book_file)
         word_count = get_num_words(file_contents)
@@ -28,14 +34,16 @@ def read_file(file_name):
 
 
 def print_report(file_name, word_count, character_counts):
-    print(f"--- Begin report of {file_name} ---")
-    print(f"{word_count} words found in the document")
-    print()
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {file_name}...")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
     for character_count in character_counts:
         character = character_count["character"]
         count = character_count["count"]
-        print(f"The '{character}' character was found {count} times")
-    print("--- End report ---")
+        print(f"{character}: {count}")
+    print("============= END ===============")
 
 
 main()
